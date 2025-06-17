@@ -2,8 +2,8 @@ import '../styles/globals.css';
 
 export const metadata = {
     title: {
-        template: '%s | Netlify',
-        default: 'Netlify Starter'
+        template: '%s | Be more Healthy',
+        default: 'Be more Healthy'
     }
 };
 
