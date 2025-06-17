@@ -15,11 +15,9 @@ export async function GET(request) {
 
         // Decode the URL
         const decodedUrl = decodeURIComponent(imageUrl);
-        console.log('Processing CloudFront image request:', decodedUrl);
 
         // Verificar se a imagem está no cache
         if (imageCache.has(decodedUrl)) {
-            console.log('Serving image from cache:', decodedUrl);
             const cachedData = imageCache.get(decodedUrl);
             return new NextResponse(cachedData.data, {
                 headers: {
@@ -59,11 +57,9 @@ export async function GET(request) {
 
         // Get the content type
         const contentType = response.headers.get('content-type') || 'image/png';
-        console.log('CloudFront image content type:', contentType);
 
         // Get the image data
         const imageData = await response.arrayBuffer();
-        console.log('CloudFront image data size:', imageData.byteLength);
 
         // Armazenar no cache
         imageCache.set(decodedUrl, {

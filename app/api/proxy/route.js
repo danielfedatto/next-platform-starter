@@ -27,7 +27,6 @@ export async function GET(request) {
             if (url.startsWith('//')) return `https:${url}`;
             if (url.startsWith('/img/')) {
                 const fixedUrl = `${baseUrl}/cb${url}`;
-                console.log('Converting /img/ URL:', { original: url, fixed: fixedUrl });
                 return fixedUrl;
             }
             return `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
@@ -41,7 +40,6 @@ export async function GET(request) {
                 // Check if it's a bestjointcare.com URL that needs /cb/ prefix
                 if (url.includes('bestjointcare.com/img/')) {
                     const fixedUrl = url.replace('bestjointcare.com/img/', 'bestjointcare.com/cb/img/');
-                    console.log('Fixing absolute URL:', { original: url, fixed: fixedUrl });
                     return fixedUrl;
                 }
                 return url;
@@ -49,13 +47,11 @@ export async function GET(request) {
             if (url.startsWith('//')) return `https:${url}`;
             if (url.startsWith('/img/')) {
                 const fixedUrl = `${baseUrl}/cb${url}`;
-                console.log('Fixing relative URL:', { original: url, fixed: fixedUrl });
                 return fixedUrl;
             }
             // Handle relative paths without leading slash
             if (url.startsWith('img/')) {
                 const fixedUrl = `${baseUrl}/cb/${url}`;
-                console.log('Fixing relative path without slash:', { original: url, fixed: fixedUrl });
                 return fixedUrl;
             }
             return `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
@@ -64,7 +60,6 @@ export async function GET(request) {
         // Handle uk-img images specifically
         const ukImgRegex = /<img[^>]*uk-img[^>]*>/gi;
         html = html.replace(ukImgRegex, (match) => {
-            console.log('Processing uk-img:', match);
             
             // Extract data-src if it exists
             const dataSrcMatch = match.match(/data-src="([^"]+)"/);
@@ -81,7 +76,6 @@ export async function GET(request) {
         const srcRegex = /(src|data-src)="([^"]+)"/gi;
         html = html.replace(srcRegex, (match, attr, url) => {
             const fixedUrl = fixImagePath(url);
-            console.log(`Converting ${attr} URL:`, { original: url, fixed: fixedUrl });
             return `${attr}="${fixedUrl}"`;
         });
 
@@ -89,7 +83,6 @@ export async function GET(request) {
         const styleRegex = /style="[^"]*background-image:\s*url\(['"]?([^'")\s]+)['"]?\)[^"]*"/gi;
         html = html.replace(styleRegex, (match, url) => {
             const fixedUrl = fixImagePath(url);
-            console.log('Converting background image URL:', { original: url, fixed: fixedUrl });
             return match.replace(url, fixedUrl);
         });
 

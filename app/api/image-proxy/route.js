@@ -9,13 +9,11 @@ export async function GET(request) {
 
         // Decode the URL
         const decodedUrl = decodeURIComponent(url);
-        console.log('Processing image request:', { originalUrl: url, decodedUrl });
 
         // Fix the URL if needed
         let fixedUrl = decodedUrl;
         if (fixedUrl.includes('bestjointcare.com/img/')) {
             fixedUrl = fixedUrl.replace('bestjointcare.com/img/', 'bestjointcare.com/cb/img/');
-            console.log('Fixed URL:', { original: decodedUrl, fixed: fixedUrl });
         }
 
         // Validate URL is from allowed domains
@@ -55,7 +53,6 @@ export async function GET(request) {
 
         // Get the content type
         const contentType = response.headers.get('content-type') || 'image/png';
-        console.log('Image content type:', contentType);
 
         // Get the image data
         const arrayBuffer = await response.arrayBuffer();
