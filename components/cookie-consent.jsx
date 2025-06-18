@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 const CookieConsent = ({ policyLink }) => {
 
@@ -27,6 +28,13 @@ const CookieConsent = ({ policyLink }) => {
                                     target="_self"
                                     rel="noopener noreferrer"
                                     className="text-blue-600 hover:text-blue-800 underline"
+                                    onClick={() => sendGTMEvent({
+                                        event: 'conversion',
+                                        send_to: 'AW-17215624479/IWMOCK-KrtwaEJ-qhpFA',
+                                        value: 1.0,
+                                        currency: 'BRL',
+                                        transaction_id: '',
+                                    })}
                                 >
                                     Learn more
                                 </a>
@@ -38,6 +46,13 @@ const CookieConsent = ({ policyLink }) => {
                             href={policyLink}
                             target="_self"
                             className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors no-underline"
+                            onClick={() => sendGTMEvent({
+                                event: 'conversion',
+                                send_to: 'AW-17215624479/IWMOCK-KrtwaEJ-qhpFA',
+                                value: 1.0,
+                                currency: 'BRL',
+                                transaction_id: '',
+                            })}
                         >
                             Accept
                         </a>
